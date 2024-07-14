@@ -134,6 +134,9 @@
 
 &spi1 {
 	status = "okay";
+	spidev@0 {
+		status = "okay";
+	};
 };
 
 &spi2 {
@@ -162,30 +165,7 @@
 };
 
 / {
-        model = "LicheeRv Nano";
-
-	spi4: spi4@gpio {
-		compatible = "spi-gpio";
-		sck-gpio = <&porta 22 0>;
-		miso-gpio = <&porta 23 0>;
-		mosi-gpio = <&porta 25 0>;
-		cs-gpio = <&porta 24 GPIO_ACTIVE_LOW>;
-		num-chipselects = <1>;
-		status = "okay";
-
-		spidev@0 {
-			compatible = "spidev";
-			reg = <0>;
-		};
-	};
-
-	i2c5: i2c5@gpio {
-		compatible = "i2c-gpio";
-                scl-gpios = <&porta 15 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-                sda-gpios = <&porta 27 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-                i2c-gpio,delay-us = <5>;
-                status = "okay";
-	};
+        model = "Meshtastic LicheeRv Nano";
 
         gpio-keys {
                 compatible = "gpio-keys";
