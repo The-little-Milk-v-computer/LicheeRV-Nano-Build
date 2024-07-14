@@ -63,37 +63,6 @@ int cvi_board_init(void)
         mmio_write_32(0x03020004, val);
 	user_led_toggle();
 
-        // wifi power reset
-        mmio_write_32(0x0300104C, 0x3); // GPIOA 26
-        val = mmio_read_32(0x03020004); // GPIOA DIR
-        val |= (1 << 26); // output
-        mmio_write_32(0x03020004, val);
-
-        val = mmio_read_32(0x03020000); // signal level
-        val &= ~(1 << 26); // set level to low
-        mmio_write_32(0x03020000, val);
-
-        suck_loop(50);
-	user_led_toggle();
-
-        val = mmio_read_32(0x03020000); // signal level
-        val |= (1 << 26); // set level to high
-        mmio_write_32(0x03020000, val);
-
-        // wifi sdio pinmux
-        mmio_write_32(0x030010D0, 0x0); // D3
-        mmio_write_32(0x030010D4, 0x0); // D2
-        mmio_write_32(0x030010D8, 0x0); // D1
-        mmio_write_32(0x030010DC, 0x0); // D0
-        mmio_write_32(0x030010E0, 0x0); // CMD
-        mmio_write_32(0x030010E4, 0x0); // CLK
-
-        // uart bluetooth
-        mmio_write_32(0x03001070, 0x1); // GPIOA 28 UART1 TX
-        mmio_write_32(0x03001074, 0x1); // GPIOA 29 UART1 RX
-        mmio_write_32(0x03001068, 0x4); // GPIOA 18 UART1 CTS
-        mmio_write_32(0x03001064, 0x4); // GPIOA 19 UART1 RTS
-
         // PWM
         //mmio_write_32(0x03001068, 0x2); // GPIOA 18 PWM 6
 
